@@ -1,0 +1,4 @@
+rootProject.name='RecordGLSurfaceView'
+include ':app'
+include ':library_modules:gl_render'
+include ':library_modules:virtual_gls'
