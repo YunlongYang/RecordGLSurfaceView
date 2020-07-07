@@ -41,7 +41,7 @@ public class VirtualGLThread extends Thread{
     public void run() {
         setName("VirtualGLThread " + getId());
         if (LOG_THREADS) {
-            Log.i("GLThread", "starting tid=" + getId());
+            Log.i(TAG, "starting tid=" + getId());
         }
 
         try {
@@ -115,14 +115,14 @@ public class VirtualGLThread extends Thread{
                             mPaused = mRequestPaused;
                             sGLThreadManager.notifyAll();
                             if (LOG_PAUSE_RESUME) {
-                                Log.i("GLThread", "mPaused is now " + mPaused + " tid=" + getId());
+                                Log.i(TAG, "mPaused is now " + mPaused + " tid=" + getId());
                             }
                         }
 
                         // Do we need to give up the EGL context?
                         if (mShouldReleaseEglContext) {
                             if (LOG_SURFACE) {
-                                Log.i("GLThread", "releasing EGL context because asked to tid=" + getId());
+                                Log.i(TAG, "releasing EGL context because asked to tid=" + getId());
                             }
                             stopEglSurfaceLocked();
                             stopEglContextLocked();
@@ -140,7 +140,7 @@ public class VirtualGLThread extends Thread{
                         // When pausing, release the EGL surface:
                         if (pausing && mHaveEglSurface) {
                             if (LOG_SURFACE) {
-                                Log.i("GLThread", "releasing EGL surface because paused tid=" + getId());
+                                Log.i(TAG, "releasing EGL surface because paused tid=" + getId());
                             }
                             stopEglSurfaceLocked();
                         }
@@ -153,7 +153,7 @@ public class VirtualGLThread extends Thread{
                             if (!preserveEglContextOnPause) {
                                 stopEglContextLocked();
                                 if (LOG_SURFACE) {
-                                    Log.i("GLThread", "releasing EGL context because paused tid=" + getId());
+                                    Log.i(TAG, "releasing EGL context because paused tid=" + getId());
                                 }
                             }
                         }
@@ -161,7 +161,7 @@ public class VirtualGLThread extends Thread{
                         // Have we lost the SurfaceView surface?
                         if ((! mHasSurface) && (! mWaitingForSurface)) {
                             if (LOG_SURFACE) {
-                                Log.i("GLThread", "noticed surfaceView surface lost tid=" + getId());
+                                Log.i(TAG, "noticed surfaceView surface lost tid=" + getId());
                             }
                             if (mHaveEglSurface) {
                                 stopEglSurfaceLocked();
@@ -174,7 +174,7 @@ public class VirtualGLThread extends Thread{
                         // Have we acquired the surface view surface?
                         if (mHasSurface && mWaitingForSurface) {
                             if (LOG_SURFACE) {
-                                Log.i("GLThread", "noticed surfaceView surface acquired tid=" + getId());
+                                Log.i(TAG, "noticed surfaceView surface acquired tid=" + getId());
                             }
                             mWaitingForSurface = false;
                             sGLThreadManager.notifyAll();
@@ -182,7 +182,7 @@ public class VirtualGLThread extends Thread{
 
                         if (doRenderNotification) {
                             if (LOG_SURFACE) {
-                                Log.i("GLThread", "sending render notification tid=" + getId());
+                                Log.i(TAG, "sending render notification tid=" + getId());
                             }
                             mWantRenderNotification = false;
                             doRenderNotification = false;
@@ -230,7 +230,7 @@ public class VirtualGLThread extends Thread{
                                     h = mHeight;
                                     mWantRenderNotification = true;
                                     if (LOG_SURFACE) {
-                                        Log.i("GLThread",
+                                        Log.i(TAG,
                                                 "noticing that we want render notification tid="
                                                         + getId());
                                     }
@@ -257,7 +257,7 @@ public class VirtualGLThread extends Thread{
                         }
                         // By design, this is the only place in a GLThread thread where we wait().
                         if (LOG_THREADS) {
-                            Log.i("GLThread", "waiting tid=" + getId()
+                            Log.i(TAG, "waiting tid=" + getId()
                                     + " mHaveEglContext: " + mHaveEglContext
                                     + " mHaveEglSurface: " + mHaveEglSurface
                                     + " mFinishedCreatingEglSurface: " + mFinishedCreatingEglSurface
@@ -282,7 +282,7 @@ public class VirtualGLThread extends Thread{
 
                 if (createEglSurface) {
                     if (LOG_SURFACE) {
-                        Log.w("GLThread", "egl createSurface");
+                        Log.w(TAG, "egl createSurface");
                     }
                     if (mEglHelper.createSurface()) {
                         synchronized(sGLThreadManager) {
@@ -308,7 +308,7 @@ public class VirtualGLThread extends Thread{
 
                 if (createEglContext) {
                     if (LOG_RENDERER) {
-                        Log.w("GLThread", "onSurfaceCreated");
+                        Log.w(TAG, "onSurfaceCreated");
                     }
                     BaseVirtualGLSurfaceView view = mGLSurfaceViewWeakRef.get();
                     if (view != null) {
@@ -324,7 +324,7 @@ public class VirtualGLThread extends Thread{
 
                 if (sizeChanged) {
                     if (LOG_RENDERER) {
-                        Log.w("GLThread", "onSurfaceChanged(" + w + ", " + h + ")");
+                        Log.w(TAG, "onSurfaceChanged(" + w + ", " + h + ")");
                     }
                     BaseVirtualGLSurfaceView view = mGLSurfaceViewWeakRef.get();
                     if (view != null) {
@@ -339,7 +339,7 @@ public class VirtualGLThread extends Thread{
                 }
 
                 if (LOG_RENDERER_DRAW_FRAME) {
-                    Log.w("GLThread", "onDrawFrame tid=" + getId());
+                    Log.w(TAG, "onDrawFrame tid=" + getId());
                 }
                 {
                     BaseVirtualGLSurfaceView view = mGLSurfaceViewWeakRef.get();
@@ -362,7 +362,7 @@ public class VirtualGLThread extends Thread{
                         break;
                     case EGL11.EGL_CONTEXT_LOST:
                         if (LOG_SURFACE) {
-                            Log.i("GLThread", "egl context lost tid=" + getId());
+                            Log.i(TAG, "egl context lost tid=" + getId());
                         }
                         lostEglContext = true;
                         break;
@@ -452,7 +452,7 @@ public class VirtualGLThread extends Thread{
     public void surfaceCreated() {
         synchronized(sGLThreadManager) {
             if (LOG_THREADS) {
-                Log.i("GLThread", "surfaceCreated tid=" + getId());
+                Log.i(TAG, "surfaceCreated tid=" + getId());
             }
             mHasSurface = true;
             mFinishedCreatingEglSurface = false;
@@ -472,7 +472,7 @@ public class VirtualGLThread extends Thread{
     public void surfaceDestroyed() {
         synchronized(sGLThreadManager) {
             if (LOG_THREADS) {
-                Log.i("GLThread", "surfaceDestroyed tid=" + getId());
+                Log.i(TAG, "surfaceDestroyed tid=" + getId());
             }
             mHasSurface = false;
             sGLThreadManager.notifyAll();
@@ -489,7 +489,7 @@ public class VirtualGLThread extends Thread{
     public void onPause() {
         synchronized (sGLThreadManager) {
             if (LOG_PAUSE_RESUME) {
-                Log.i("GLThread", "onPause tid=" + getId());
+                Log.i(TAG, "onPause tid=" + getId());
             }
             mRequestPaused = true;
             sGLThreadManager.notifyAll();
@@ -509,7 +509,7 @@ public class VirtualGLThread extends Thread{
     public void onResume() {
         synchronized (sGLThreadManager) {
             if (LOG_PAUSE_RESUME) {
-                Log.i("GLThread", "onResume tid=" + getId());
+                Log.i(TAG, "onResume tid=" + getId());
             }
             mRequestPaused = false;
             mRequestRender = true;

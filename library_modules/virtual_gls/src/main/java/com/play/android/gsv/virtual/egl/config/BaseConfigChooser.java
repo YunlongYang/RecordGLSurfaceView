@@ -4,6 +4,7 @@ import android.opengl.EGL14;
 import android.opengl.EGLExt;
 
 import com.play.android.gsv.virtual.BaseVirtualGLSurfaceView;
+import com.play.android.gsv.virtual.egl.version.EGLContextClientVersion;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -12,11 +13,11 @@ import javax.microedition.khronos.egl.EGLDisplay;
 public abstract class BaseConfigChooser
         implements EGLConfigChooser {
 
-    private BaseVirtualGLSurfaceView virtualGLSurfaceView;
+    private EGLContextClientVersion eGLContextClientVersion;
 
-    public BaseConfigChooser(int[] configSpec, BaseVirtualGLSurfaceView virtualGLSurfaceView) {
+    public BaseConfigChooser(int[] configSpec, EGLContextClientVersion eGLContextClientVersion) {
+        this.eGLContextClientVersion = eGLContextClientVersion;
         mConfigSpec = filterConfigSpec(configSpec);
-        this.virtualGLSurfaceView = virtualGLSurfaceView;
     }
 
     public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
@@ -51,7 +52,7 @@ public abstract class BaseConfigChooser
     protected int[] mConfigSpec;
 
     private int[] filterConfigSpec(int[] configSpec) {
-        int mEGLContextClientVersion= virtualGLSurfaceView.getEGLContextClientVersion();
+        int mEGLContextClientVersion= eGLContextClientVersion.getEGLContextClientVersion();
         if (mEGLContextClientVersion != 2 && mEGLContextClientVersion != 3) {
             return configSpec;
         }

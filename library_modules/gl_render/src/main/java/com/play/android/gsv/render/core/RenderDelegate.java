@@ -3,10 +3,15 @@ package com.play.android.gsv.render.core;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 
+import java.util.logging.Logger;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 public class RenderDelegate implements GLSurfaceView.Renderer {
+
+    private static final Logger logger = Logger.getLogger("RenderDelegate");
+
     int width;
     int height;
     int frameCount = 0;
@@ -23,6 +28,7 @@ public class RenderDelegate implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
+        logger.info("onDrawFrame "+width+"*"+height + " frameCount:"+frameCount);
         GLES20.glViewport(0, 0, width, height);
         GLES20.glClearColor(frameCount%250, 0, (frameCount*7)%250, 1.0f);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);

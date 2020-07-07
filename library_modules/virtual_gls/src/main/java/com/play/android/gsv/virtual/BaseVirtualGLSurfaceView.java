@@ -11,13 +11,14 @@ import com.play.android.gsv.virtual.egl.context.DefaultContextFactory;
 import com.play.android.gsv.virtual.egl.context.EGLContextFactory;
 import com.play.android.gsv.virtual.egl.surface.DefaultWindowSurfaceFactory;
 import com.play.android.gsv.virtual.egl.surface.EGLWindowSurfaceFactory;
+import com.play.android.gsv.virtual.egl.version.EGLContextClientVersion;
 import com.play.android.gsv.virtual.egl.wrapper.GLWrapper;
 import com.play.android.gsv.virtual.thread.VirtualGLThread;
 import com.play.android.gsv.virtual.thread.VirtualGLThreadManager;
 
 import java.lang.ref.WeakReference;
 
-public class BaseVirtualGLSurfaceView implements SurfaceHolder.Callback2 {
+public class BaseVirtualGLSurfaceView implements SurfaceHolder.Callback2, EGLContextClientVersion {
     private static final String TAG = "BVGLSView";
 
     private Context context;

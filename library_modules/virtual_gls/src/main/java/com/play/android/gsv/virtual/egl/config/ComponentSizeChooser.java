@@ -1,6 +1,7 @@
 package com.play.android.gsv.virtual.egl.config;
 
 import com.play.android.gsv.virtual.BaseVirtualGLSurfaceView;
+import com.play.android.gsv.virtual.egl.version.EGLContextClientVersion;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
@@ -9,7 +10,7 @@ import javax.microedition.khronos.egl.EGLDisplay;
 public class ComponentSizeChooser  extends BaseConfigChooser{
     public ComponentSizeChooser(int redSize, int greenSize, int blueSize,
                                 int alphaSize, int depthSize, int stencilSize,
-                                BaseVirtualGLSurfaceView baseVirtualGLSurfaceView) {
+                                EGLContextClientVersion eGLContextClientVersion) {
         super(new int[] {
                 EGL10.EGL_RED_SIZE, redSize,
                 EGL10.EGL_GREEN_SIZE, greenSize,
@@ -17,7 +18,7 @@ public class ComponentSizeChooser  extends BaseConfigChooser{
                 EGL10.EGL_ALPHA_SIZE, alphaSize,
                 EGL10.EGL_DEPTH_SIZE, depthSize,
                 EGL10.EGL_STENCIL_SIZE, stencilSize,
-                EGL10.EGL_NONE},baseVirtualGLSurfaceView);
+                EGL10.EGL_NONE},eGLContextClientVersion);
         mValue = new int[1];
         mRedSize = redSize;
         mGreenSize = greenSize;

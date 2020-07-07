@@ -17,7 +17,23 @@
 <!--            </intent-filter>-->
 <!--        </activity>-->
 
-        <activity android:name="com.play.android.gsv.render.ui.test.TestGsvActivity">
+<!--        <activity android:name="com.play.android.gsv.render.ui.test.TestGsvActivity">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
+<!--        <activity android:name="com.play.android.egl.offscreen.ui.EglOffscreenTestActivity">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+
+        <activity android:name="com.play.android.onscreen.egl.ui.EglOnScreenTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -28,6 +28,8 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation project(':library_modules:gl_render')
+    implementation project(':library_modules:offscreen_egl')
+    implementation project(':library_modules:onscreen_egl')
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
